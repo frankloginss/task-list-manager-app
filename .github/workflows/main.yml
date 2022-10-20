@@ -33,9 +33,13 @@ jobs:
           cd taskmgr-app
           npm ci
           npm run build
-          cd ../backend/dist
-          cp index.js 
-          cp index.js ../../taskmgr-app/build/
+
+      - name: copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "./backend/dist/index.js"
+          target: "./taskmgr-app/build/server.js"
+          
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
