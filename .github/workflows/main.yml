@@ -1,25 +1,40 @@
-name: CI-SFTP
+name: TASKMANAGER-APP
  
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-#  pull_request:
-#    branches: [ main ]
+  pull_request:
+    branches: [ main ]
  
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "SFTP"
-  deploy-via-sftp:
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-          
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: install dep and build
+        run: |
+          cd backend
+          npm ci
+          cd ../taskmgr-app
+          npm ci
+          npm build
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
@@ -30,7 +45,7 @@ jobs:
  
           
           # will put all file under this path
-          local_path: ./* # default is ./*
+          local_path: ./taskmgr-app/build/* # default is ./*
           # files will copy to under remote_path
           remote_path: /home/react-taskmgr.ml/public_html/
           
