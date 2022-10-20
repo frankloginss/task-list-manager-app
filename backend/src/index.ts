@@ -29,5 +29,5 @@ app.post("/save", (req, res) => {
 app.get("/load", (req, res) => res.json({ lists }))
 
 app.listen(port, () =>
-  console.log(`Kanban backend running on http://localhost:${port}!`)
+  console.log(`Kanban-backend server running on http://localhost:${port}!`)
 )
