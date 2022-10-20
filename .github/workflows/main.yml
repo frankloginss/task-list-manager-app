@@ -34,7 +34,7 @@ jobs:
           npm ci
           cd ../taskmgr-app
           npm ci
-          npm build
+          npm run build
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
