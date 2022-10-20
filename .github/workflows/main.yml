@@ -30,11 +30,12 @@ jobs:
 
       - name: install dep and build
         run: |
-          cd backend
-          npm ci
-          cd ../taskmgr-app
+          cd taskmgr-app
           npm ci
           npm run build
+          cd ../backend/dist
+          cp index.js 
+          cp index.js ../../taskmgr-app/build/
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
