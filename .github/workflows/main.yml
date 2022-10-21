@@ -30,29 +30,30 @@ jobs:
 
       - name: install dep and build
         run: |
+          npm ci
           cd taskmgr-app
           npm ci
           npm run build
 
-      - name: copy-file
-        uses: canastro/copy-file-action@master
-        with:
-          source: "./backend/dist/index.js"
-          target: "./taskmgr-app/build/server.js"
+      # - name: copy-file
+      #   uses: canastro/copy-file-action@master
+      #   with:
+      #     source: "./backend/dist/index.js"
+      #     target: "./taskmgr-app/build/server.js"
 
-      - name: SFTP Deploy
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.1
-        with:
-          username: react4601
-          server: react-taskmgr.ml
-          port: 22 # default is 22
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+      # - name: SFTP Deploy
+      #   uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+      #   with:
+      #     username: react4601
+      #     server: react-taskmgr.ml
+      #     port: 22 # default is 22
+      #     ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
  
           
-          # will put all file under this path
-          local_path: ./taskmgr-app/build/* # default is ./*
-          # files will copy to under remote_path
-          remote_path: /home/react-taskmgr.ml/public_html/
+      #     # will put all file under this path
+      #     local_path: ./taskmgr-app/build/* # default is ./*
+      #     # files will copy to under remote_path
+      #     remote_path: /home/react-taskmgr.ml/public_html/
           
-          # sftp args
-          args: '-o ConnectTimeout=5'
+      #     # sftp args
+      #     args: '-o ConnectTimeout=5'
