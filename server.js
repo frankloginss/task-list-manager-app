@@ -19,5 +19,5 @@ app.post("/save", function (req, res) {
 });
 app.get("/load", function (req, res) { return res.json({ lists: lists }); });
 app.listen(port, function () {
-    return console.log("Kanban-backend server running on port " + port + "!");
+    return console.log("taskmgrapp-backend server running on port " + port + "!");
 });
